@@ -1,3 +1,3 @@
-# micromixin-example-mod
+# Panorama Mod
 
-This is an example project to be used with [LaunchWrapper](https://github.com/MCPHackers/LaunchWrapper) and utilizes [Micromixin](https://github.com/stianloader/Micromixin), an alternative implementation of [SpongePowered Mixin](https://github.com/SpongePowered/Mixin)
+Adds a scrolling panorama background like in Beta 1.8 and later
