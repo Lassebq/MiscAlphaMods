@@ -1,8 +1,10 @@
 plugins {
     id 'java'
-	id 'fabric-loom' version '1.7-SNAPSHOT'
-	id 'ploceus' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.8.3'
+	id 'ploceus' version '1.8.3'
 }
+
+archivesBaseName = "${modid}-${mod_version}"
 
 repositories {
     mavenLocal()
@@ -21,35 +23,26 @@ loom {
     clientOnlyMinecraftJar()
     runs {
 		client {
-            // accessfixer - a lot of mappings are bad and don't respect package access, so members have to be made public
 			// log - Extra warnings and info from LaunchWrapper
-            // dev - Required for loom environments
-			vmArgs "-Dlaunchwrapper.log=true"
-			vmArgs "-Dlaunchwrapper.dev=true"
-			vmArgs "-Dlaunchwrapper.accessfixer=true"
-			programArg "--username"
-			programArg "Player"
-			programArg "--session"
-			programArg "-"
-			programArg "--tweakClass"
-			programArg "org.mcphackers.launchwrapper.micromixin.tweak.MicroMixinTweak"
+            // dev - Required for loom environments. Tells LW to use "named" as targetNamespace
+            // accessfixer - a lot of mappings are bad and don't respect package access, so members have to be made public
+			vmArgs "-Dlaunchwrapper.log=true", "-Dlaunchwrapper.dev=true", "-Dlaunchwrapper.accessfixer=true"
+			programArgs "--username", "Player"
+			programArgs "--session", "-"
+			programArgs "--tweakClass", "org.mcphackers.launchwrapper.micromixin.tweak.MicroMixinTweak"
 			environment = "client"
 			configName = "Minecraft Client"
 			defaultMainClass = "org.mcphackers.launchwrapper.Launch"
 			runDir = "run"
-			programArg "--gameDir"
-			programArg file(runDir).getAbsolutePath()
+			programArgs "--gameDir", file(runDir).getAbsolutePath()
 			source = sourceSets.main
 			ideConfigGenerated = true
-
-			// Configure run config with the default client options.
-			// client()
 		}
 	}
     mixin {
         useLegacyMixinAp = false
     }
-    accessWidenerPath = file("src/main/resources/quitbutton.accesswidener")
+    // accessWidenerPath = file("src/main/resources/${project.modid}.accesswidener")
 }
 
 ploceus {
@@ -59,10 +52,10 @@ ploceus {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings ploceus.featherMappings("${project.feather_build}")
-    implementation "org.stianloader:micromixin-runtime:0.6.4-a20240825"
-    implementation "org.stianloader:micromixin-annotations:0.6.4-a20240825"
-    implementation "org.stianloader:micromixin-transformer:0.6.4-a20240825"
-    implementation "org.stianloader:micromixin-remapper:0.2.0-a20240908" // For remapping mixin annotations
+	implementation "org.stianloader:micromixin-transformer:0.6.5-a20240922"
+	implementation "org.stianloader:micromixin-runtime:0.6.5-a20240922"
+	implementation "org.stianloader:micromixin-annotations:0.6.5-a20240922"
+	implementation "org.stianloader:micromixin-remapper:0.2.0-a20240908" // For remapping mixin annotations
     implementation "org.stianloader:stianloader-remapper:0.1.0-a20240601" // For remapping classes and references
     implementation "net.fabricmc:mapping-io:0.3.0"
     implementation "net.fabricmc:access-widener:2.1.0"
@@ -76,9 +69,17 @@ dependencies {
 }
 
 remapJar {
-    targetNamespace = "named"
+    // targetNamespace = "named"
     // or official if you don't want to remap at runtime and include mappings in build (Currently broken)
-    // targetNamespace = "clientOfficial" 
+    targetNamespace = "clientOfficial" 
+}
+
+processResources {
+    filesMatching('launchwrapper.mod.json') {
+        expand 'modid': project.modid, 'mod_version': project.mod_version, 'sourceNamespace': remapJar.targetNamespace.get()
+        // sourceNamespace in json is what the mod build is remapped to.
+        // targetNamespace in json depends on environment. For dev env - named. For prod builds - official
+    }
 }
 
 jar {
