@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.lassebq.visualfixes.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "GrassBlockMixin",
+    "InventoryMenuScreenMixin",
+    "BlockRendererMixin",
+    "ItemRendererMixin",
+    "RenderItemMixin",
+    "CowModelMixin",
+    "HumanoidModelMixin",
+    "PlayerEntityRendererMixin",
+    "CactusBlockMixin",
+    "BlockWithBlockEntityMixin",
+    "EntityRendererMixin",
+    "ParticleManagerMixin",
+    "MinecraftMixin",
+    "LoadingScreenRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
