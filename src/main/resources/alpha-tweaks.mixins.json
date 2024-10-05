@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.lassebq.alphatweaks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "PickaxeItemMixin",
+    "AxeItemMixin",
+    "StairsBlockMixin",
+    "FurnaceBlockMixin",
+    "LeavesBlockMixin",
+    "LogBlockMixin",
+    "PressurePlateBlockMixin",
+    "StoneSlabBlockMixin",
+    "BlockMixin",
+    "FenceBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
