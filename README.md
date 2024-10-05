@@ -1,3 +1,4 @@
-# micromixin-example-mod
+# Quit Button
 
-This is an example project to be used with [LaunchWrapper](https://github.com/MCPHackers/LaunchWrapper) and utilizes [Micromixin](https://github.com/stianloader/Micromixin), an alternative implementation of [SpongePowered Mixin](https://github.com/SpongePowered/Mixin)
+Adds a quit button to title screen which closes the game. Unlike in b1.0 and above, unhiding quit button isn't just a boolean toggle and so it couldn't be done on [LaunchWrapper](https://github.com/MCPHackers/LaunchWrapper)'s end.
+
