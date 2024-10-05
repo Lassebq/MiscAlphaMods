@@ -3,19 +3,23 @@ package io.github.lassebq.alphatweaks.mixin;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 
+import io.github.lassebq.alphatweaks.OnPlacedByEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWithBlockEntity;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.living.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 @Mixin(FurnaceBlock.class)
-public abstract class FurnaceBlockMixin extends BlockWithBlockEntity {
+public abstract class FurnaceBlockMixin extends BlockWithBlockEntity implements OnPlacedByEntity {
 	@Unique
    	private Random random = new Random();
 
@@ -56,6 +60,32 @@ public abstract class FurnaceBlockMixin extends BlockWithBlockEntity {
 		}
 
 		super.onRemoved(world, x, y, z);
+	}
+
+	@Overwrite
+	public void onAdded(World world, int x, int y, int z) {
+		super.onAdded(world, x, y, z);
+	}
+
+	@Override
+	public void onPlaced(World world, int x, int y, int z, LivingEntity entity) {
+		int var6 = MathHelper.floor((double)(entity.yaw * 4.0F / 360.0F) + 0.5) & 3;
+		if (var6 == 0) {
+			world.setBlockMetadata(x, y, z, 2);
+		}
+	
+		if (var6 == 1) {
+			world.setBlockMetadata(x, y, z, 5);
+		}
+	
+		if (var6 == 2) {
+			world.setBlockMetadata(x, y, z, 3);
+		}
+	
+		if (var6 == 3) {
+			world.setBlockMetadata(x, y, z, 4);
+		}
+
 	}
 
 }

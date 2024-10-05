@@ -15,7 +15,11 @@
     "PressurePlateBlockMixin",
     "StoneSlabBlockMixin",
     "BlockMixin",
-    "FenceBlockMixin"
+    "BlockItemMixin",
+    "FenceBlockMixin",
+    "ChestBlockMixin",
+    "SignItemMixin",
+    "WorldMixin"
   ],
   "injectors": {
     "defaultRequire": 1
