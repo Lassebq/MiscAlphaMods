@@ -12,6 +12,17 @@ import net.minecraft.world.World;
 public abstract class WorldMixin {
     @Shadow public abstract int getBlock(int x, int y, int z);
     @Shadow public abstract boolean canBuildIn(Box box);
+    @Shadow public abstract boolean setBlockMetadataQuietly(int x, int y, int z, int metadata);
+    @Shadow public abstract void onBlockChanged(int x, int y, int z, int blockId);
+    @Shadow public abstract void updateNeighbors(int x, int y, int z, int blockId);
+
+    @Overwrite
+    public void setBlockMetadata(int x, int y, int z, int metadata) {
+        if(this.setBlockMetadataQuietly(x, y, z, metadata)) {
+            int var5 = this.getBlock(x, y, z);
+            this.updateNeighbors(x, y, z, var5);
+        }
+    }
 
     @Overwrite
     public boolean canReplace(int i, int j, int k, int l, boolean bl) {
