@@ -19,7 +19,9 @@
     "FenceBlockMixin",
     "ChestBlockMixin",
     "SignItemMixin",
-    "WorldMixin"
+    "WorldMixin",
+    "EntityMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
