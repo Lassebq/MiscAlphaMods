@@ -70,7 +70,7 @@ dependencies {
 
 remapJar {
     // targetNamespace = "named"
-    // or official if you don't want to remap at runtime and include mappings in build (Currently broken)
+    // or official if you don't want to remap at runtime and include mappings in build
     targetNamespace = "clientOfficial" 
 }
 
