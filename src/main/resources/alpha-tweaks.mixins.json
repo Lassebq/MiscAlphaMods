@@ -22,7 +22,8 @@
     "WorldMixin",
     "EntityMixin",
     "LivingEntityMixin",
-    "OctaveNoiseGeneratorMixin"
+    "OctaveNoiseGeneratorMixin",
+    "WheatSeedsItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
