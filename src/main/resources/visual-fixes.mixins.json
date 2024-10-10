@@ -19,7 +19,8 @@
     "EntityRendererMixin",
     "ParticleManagerMixin",
     "MinecraftMixin",
-    "LoadingScreenRendererMixin"
+    "LoadingScreenRendererMixin",
+    "HeldItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
