@@ -1,0 +1,5 @@
+accessWidener v2 named
+accessible field net/minecraft/world/gen/chunk/OverworldChunkGenerator random Ljava/util/Random;
+accessible field net/minecraft/world/gen/chunk/OverworldChunkGenerator f_4386868 Lnet/minecraft/world/gen/noise/OctaveNoiseGenerator;
+accessible field net/minecraft/world/gen/chunk/OverworldChunkGenerator surfaceNoise Lnet/minecraft/world/gen/noise/OctaveNoiseGenerator;
+accessible field net/minecraft/world/gen/chunk/OverworldChunkGenerator cave Lnet/minecraft/world/gen/Generator;

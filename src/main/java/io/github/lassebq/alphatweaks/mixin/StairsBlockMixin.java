@@ -3,8 +3,11 @@ package io.github.lassebq.alphatweaks.mixin;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import io.github.lassebq.alphatweaks.OnPlacedByEntity;
 import net.minecraft.block.Block;
@@ -33,35 +36,63 @@ public class StairsBlockMixin extends Block implements OnPlacedByEntity {
 	   return super.getCollisionShape(world, x, y, z);
 	}
 
-	@Overwrite
-	public int getDropItem(int metadata, Random random) {
-		return this.id;
+	@Inject(
+		method = "getDropItem(ILjava/util/Random;)I",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void getDropItem(int metadata, Random random, CallbackInfoReturnable<Integer> ci) {
+		ci.setReturnValue(this.id);
 	}
 
-	@Overwrite
-	public int getBaseDropCount(Random random) {
-		return 1;
+	@Inject(
+		method = "getBaseDropCount(Ljava/util/Random;)I",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void getBaseDropCount(Random random, CallbackInfoReturnable<Integer> ci) {
+		ci.setReturnValue(1);
 	}
 
-	@Overwrite
-	public void dropItems(World world, int x, int y, int z, int metadata, float luck) {
+	@Inject(
+		method = "dropItems(Lnet/minecraft/world/World;IIIIF)V",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void dropItems(World world, int x, int y, int z, int metadata, float luck, CallbackInfo ci) {
 		super.dropItems(world, x, y, z, metadata, luck);
+		ci.cancel();
 	}
 
-	@Overwrite
-	public void dropItems(World world, int x, int y, int z, int metadata) {
+	@Inject(
+		method = "dropItems(Lnet/minecraft/world/World;IIII)V",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void dropItems(World world, int x, int y, int z, int metadata, CallbackInfo ci) {
 		super.dropItems(world, x, y, z, metadata);
+		ci.cancel();
 	}
 
-	@Overwrite
-	public void neighborChanged(World world, int x, int y, int z, int neighborBlockId) {
+	@Inject(
+		method = "neighborChanged(Lnet/minecraft/world/World;IIII)V",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void neighborChanged(World world, int x, int y, int z, int neighborBlockId, CallbackInfo ci) {
 		super.neighborChanged(world, x, y, z, neighborBlockId);
+		ci.cancel();
 	}
 
-	@Overwrite
-	public void onAdded(World world, int x, int y, int z) {
+	@Inject(
+		method = "onAdded(Lnet/minecraft/world/World;III)V",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void onAdded(World world, int x, int y, int z, CallbackInfo ci) {
 		this.neighborChanged(world, x, y, z, 0);
 		this.baseBlock.onAdded(world, x, y, z);
+		ci.cancel();
 	}
 
 	@Override

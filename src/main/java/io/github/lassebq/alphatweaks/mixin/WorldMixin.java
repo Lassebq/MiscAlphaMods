@@ -1,15 +1,22 @@
 package io.github.lassebq.alphatweaks.mixin;
 
+import java.io.File;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
+import io.github.lassebq.alphatweaks.OverworldChunkGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkCache;
+import net.minecraft.world.chunk.ChunkSource;
+import net.minecraft.world.chunk.storage.AlphaChunkStorage;
 
 @Mixin(World.class)
 public abstract class WorldMixin {
+    @Shadow public long seed;
     @Shadow public abstract int getBlock(int x, int y, int z);
     @Shadow public abstract boolean canBuildIn(Box box);
     @Shadow public abstract boolean setBlockMetadataQuietly(int x, int y, int z, int metadata);
@@ -42,5 +49,10 @@ public abstract class WorldMixin {
         } else {
             return var8.canSurvive((World)(Object)this, j, k, l);
         }
+    }
+
+    @Overwrite
+    public ChunkSource createChunkCache(File file) {
+        return new ChunkCache((World)(Object)this, new AlphaChunkStorage(file, true), new OverworldChunkGenerator((World)(Object)this, this.seed));
     }
 }

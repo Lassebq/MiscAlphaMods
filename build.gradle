@@ -42,7 +42,7 @@ loom {
     mixin {
         useLegacyMixinAp = false
     }
-    // accessWidenerPath = file("src/main/resources/${project.modid}.accesswidener")
+    accessWidenerPath = file("src/main/resources/${project.modid}.accesswidener")
 }
 
 ploceus {

@@ -21,7 +21,8 @@
     "SignItemMixin",
     "WorldMixin",
     "EntityMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "OctaveNoiseGeneratorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

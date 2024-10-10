@@ -3,8 +3,10 @@ package io.github.lassebq.alphatweaks.mixin;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.lassebq.alphatweaks.OnPlacedByEntity;
 import net.minecraft.block.Block;
@@ -62,9 +64,14 @@ public abstract class FurnaceBlockMixin extends BlockWithBlockEntity implements 
 		super.onRemoved(world, x, y, z);
 	}
 
-	@Overwrite
-	public void onAdded(World world, int x, int y, int z) {
+	@Inject(
+		method = "onAdded(Lnet/minecraft/world/World;III)V",
+		at = @At("HEAD"),
+		cancellable = true
+	)
+	public void onAdded(World world, int x, int y, int z, CallbackInfo ci) {
 		super.onAdded(world, x, y, z);
+		ci.cancel();
 	}
 
 	@Override
