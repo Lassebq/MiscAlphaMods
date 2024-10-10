@@ -1,6 +1,7 @@
 package io.github.lassebq.alphatweaks.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.AxeItem;
@@ -8,7 +9,7 @@ import net.minecraft.item.ToolItem;
 
 @Mixin(AxeItem.class)
 public class AxeItemMixin extends ToolItem {
-	private static Block[] EFFECTIVE_BLOCKS = new Block[]{
+	@Shadow private static Block[] EFFECTIVE_BLOCKS = new Block[]{
 		Block.PLANKS,
 		Block.BOOKSHELF,
 		Block.LOG,

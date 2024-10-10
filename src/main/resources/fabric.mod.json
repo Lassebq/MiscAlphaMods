@@ -1,0 +1,6 @@
+
+{
+    "id": "${modid}",
+    "version": "${mod_version}",
+    "accessWidener": "${modid}.accesswidener"
+}
