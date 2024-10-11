@@ -1,0 +1,11 @@
+
+{
+    "schemaVersion": 1,
+    "id": "${modid}",
+    "version": "${mod_version}",
+	"license": "MIT",
+	"environment": "*",
+    "mixins": [
+        "${modid}.mixins.json"
+    ]
+}
