@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-	id 'fabric-loom' version '1.8.3'
-	id 'ploceus' version '1.8.3'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
+	id 'ploceus' version '1.8-SNAPSHOT'
 }
 
 archivesBaseName = "${modid}-${mod_version}"
@@ -71,11 +71,11 @@ dependencies {
 remapJar {
     // targetNamespace = "named"
     // or official if you don't want to remap at runtime and include mappings in build
-    targetNamespace = "clientOfficial" 
+    // targetNamespace = "clientOfficial"
 }
 
 processResources {
-    filesMatching('launchwrapper.mod.json') {
+    filesMatching(['launchwrapper.mod.json', 'fabric.mod.json']) {
         expand 'modid': project.modid, 'mod_version': project.mod_version, 'sourceNamespace': remapJar.targetNamespace.get()
         // sourceNamespace in json is what the mod build is remapped to.
         // targetNamespace in json depends on environment. For dev env - named. For prod builds - official
